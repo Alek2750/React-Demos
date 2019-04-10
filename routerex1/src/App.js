@@ -1,6 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 
+const topics = [{id:"topic-1", topic:"Text for Topic-1"},
+               {id:"topic-2", topic:"Another topic"},
+               {id:"topic-3", topic:"Yet another Topic"},
+               {id:"topic-4", topic:"Another one & another one"},
+               {id:"topic-5", topic:"You can not see this hand"}];
+
+
 function Header() {
   return (
     <ul className="header">
@@ -63,22 +70,18 @@ function About() {
 }
 
 function Topics({ match }) {
+  const lis = topics.map(t=><li key={t.id}><Link to={`${match.url}/${t.id}`}>{t.id}</Link></li>)
   return (
     <div>
       <h2>Topics</h2>
       <ul>
-        <li>
-          <Link to={`${match.url}/rendering`}>Rendering with React</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/components`}>Components</Link>
-        </li>
-        <li>
-          <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
-        </li>
+        {lis}
       </ul>
 
-      <Route path={`${match.path}/:topicId`} component={Topic} />
+      <Route path={`${match.path}/:topicId`}
+            render={(props) => 
+          <Topic {...props} theTopic={topics.find(t=>t.id === props.match.params.topicId)} />} />
+
       <Route
         exact
         path={match.path}
@@ -88,10 +91,11 @@ function Topics({ match }) {
   );
 }
 
-function Topic({ match }) {
+function Topic({ match, theTopic }) {
   return (
     <div>
       <h3>{match.params.topicId}</h3>
+      <p>{theTopic.topic}</p>
     </div>
   );
 }
