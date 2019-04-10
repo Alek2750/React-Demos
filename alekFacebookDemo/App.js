@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, Platform, TouchableOpacity, StyleSheet, Button, WebView } from 'react-native';
 import { Constants, WebBrowser } from "expo";
-import { createStackNavigator,createAppContainer  } from 'react-navigation';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 //Todo: Refactor into a seperate file (Basics.js), import and complete the exercise
 class Basics extends React.Component {
@@ -11,21 +11,22 @@ class Basics extends React.Component {
   }
 }
 
-Greeting = (props) =>{
-  
-    return (
-      <View style={{ alignItems: 'center' }}>
-        <Text>Hello {props.name}!</Text>
-      </View>
-    );
-  }
+Greeting = ({name}) => {
+
+  return (
+    <View style={{ alignItems: 'center' }}>
+      <Text>Hello {name}!</Text>
+    </View>
+  );
+
+}
 
 class LotsOfGreetings extends Component {
   render() {
     return (
-      <View style={{alignItems: 'center', top: 50}}>
+      <View style={{ alignItems: 'center', top: 50 }}>
         <Greeting name='Rexxar' />
-        <Greeting name='Jaina' />
+        <Greeting name='Lars' />
         <Greeting name='Valeera' />
       </View>
     );
@@ -38,6 +39,37 @@ class Props extends React.Component {
   render() {
     return (
       <LotsOfGreetings />
+    )
+  }
+}
+
+class CountDemo extends Component {
+
+  constructor(){
+    super();
+    this.state = {count: 1}
+    setInterval(()=>{
+      let count = this.state.count;
+      count++;
+      this.setState({count})
+    },1000);
+  }
+
+  render(){
+    return (
+    <View>
+      <Text style={{fontSize: 40}}> {this.state.count}</Text>
+
+    </View>
+    )
+  }
+}
+
+class StateDemo extends React.Component {
+  static navigationOptions = { title: "Learn about State" }
+  render() {
+    return (
+     <CountDemo/>
     )
   }
 }
@@ -64,7 +96,7 @@ class WhatToDo extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <Text style={{ marginBottom: 3 }}>Complete all steps in Facebooks "The Basics" tutorial (see below)</Text>
-        <Text style={{ marginBottom: 3 }}>For each of the 11 steps, add a corresponding Component in this project + 
+        <Text style={{ marginBottom: 3 }}>For each of the 11 steps, add a corresponding Component in this project +
         the necessecary changes to navigate into it.(inspired by, how you navigated into this View)</Text>
         <Text style={{ marginBottom: 3 }}>Please observe that this View, includes an embedded WebView</Text>
         <WebView
@@ -82,10 +114,12 @@ class HomeScreen extends React.Component {
     const { navigate } = this.props.navigation;
     return (
       <View >
-        <Text style={{ textAlign: "center", fontSize: 20 }}>See all Demos implemented by Alessandro</Text>
+        <Text style={{ textAlign: "center", fontSize: 20 }}>
+          See all Demos implemented by Lars</Text>
         <Touchable onPress={() => navigate('web')} title="What I have to do" />
         <Touchable onPress={() => navigate('basics')} title="Basics" />
         <Touchable onPress={() => navigate('props')} title="Props" />
+        <Touchable onPress={() => navigate('state')} title="State Demo" />
       </View>
     )
   }
@@ -98,9 +132,10 @@ const RouteStack = createStackNavigator({
   basics: { screen: Basics },
   props: { screen: Props },
   web: { screen: WhatToDo },
+  state: { screen: StateDemo },
 });
 
-const App= createAppContainer(RouteStack);
+const App = createAppContainer(RouteStack);
 export default App;
 
 const styles = StyleSheet.create({
@@ -116,3 +151,4 @@ const styles = StyleSheet.create({
     color: 'white'
   }
 })
+
