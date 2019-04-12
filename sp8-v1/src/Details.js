@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { HashRouter as Router, Route, Link } from "react-router-dom";
 import data from './data/data.json';
 
-/*class Details extends Component {
+class Details extends Component {
     constructor(props) {
         super(props);
         this.state = { data: [] };
@@ -28,8 +28,8 @@ import data from './data/data.json';
         </div>
         )
     }
-}*/
-
+}
+/*
 function Details({ match }) {
     const lis = data.user.map(user=><li key={user.first}><Link to={`${match.url}/${user.first}`}>{user.first}</Link></li>)
     return (
@@ -59,5 +59,5 @@ function Details({ match }) {
         <p>{thePerson.detail}</p>
       </div>
     );
-  }
+  }*/
 export default Details;
