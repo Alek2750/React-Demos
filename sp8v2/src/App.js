@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {BrowserRouter, Router, Route, Link, NavLink, Switch } from "react-router-dom";
 
 import './App.css';
+import BookStore from './BookStore';
 
 function Header() {
   return (
@@ -21,9 +22,13 @@ function Home() {
   )
 }
 class Product extends Component {
+  
   render() {
     return (
+      <div>
       <h1>Hello from Product</h1>
+      <h2>{BookStore}</h2>
+      </div>
     );
   }
 };
